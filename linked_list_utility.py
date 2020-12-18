@@ -21,8 +21,7 @@ def print_link_list(node, is_dict=False):
     else:
         while node:
             if node.key:
-                dict = {}
-                dict[node.key] = node.val
+                dict = {node.key: node.val}
                 node_data.append(dict)
             node = node.next
         print(node_data)
