@@ -1,4 +1,6 @@
 import linked_list_utility
+import stack_and_queue_utitlity
+from collections import defaultdict
 
 
 # problem 1
@@ -73,12 +75,67 @@ class LRUCache:
         linked_list_utility.print_link_list(self.list.get_head(), True)
 
 
+# problem 2
+def min_cuts(wall):
+    hash = defaultdict(int)
+
+    for row in wall:
+        length = 0
+        for size in row[:-1]:
+            length += size
+            hash[length] += 1
+
+    return len(wall) - max(hash.values())
+
+
+# problem 3
+class SparseArray:
+    def __init__(self, arr, max_size):
+        self.__hash = {}
+        self.__max_size = max_size
+        for i, e in enumerate(arr):
+            if e != 0:
+                self.__hash[i] = e
+        print("INIT:", self.__hash)
+
+    def get(self, i):
+        if i in self.__hash:
+            print("GET:", self.__hash)
+            return self.__hash[i]
+        print("GET:", self.__hash)
+        return 0
+
+    def set(self, i, val):
+        self.__check_bounds(i)
+        if val != 0:
+            self.__hash[i] = val
+        elif i in self.__hash:
+            del self.__hash[i]
+        print("SET:", self.__hash)
+        return
+
+    def __check_bounds(self, i):
+        if i < 0 or i > self.__max_size:
+            raise IndexError('Out of bounds')
+
+
 if __name__ == "__main__":
-    # problem 1
+    print("\n#####***** Solution 1 ******#####")
     lru_cache = LRUCache()
-    lru_cache.set(1,2)
-    lru_cache.set(2,22)
+    lru_cache.set(1, 2)
+    lru_cache.set(2, 22)
     lru_cache.get(1)
     lru_cache.get(44)
-    lru_cache.set(2,33)
+    lru_cache.set(2, 33)
 
+    print("\n#####***** Solution 2 ******#####")
+    fixed_arr = [[3, 5, 1, 1], [5, 5], [2, 3, 3, 2], [4, 4, 2], [1, 3, 3, 3], [1, 1, 6, 1, 1]]
+    print(fixed_arr)
+    print(min_cuts(fixed_arr))
+
+    print("\n#####***** Solution 3 ******#####")
+    sparse_arr = stack_and_queue_utitlity.get_sparse_array()
+    print(sparse_arr)
+    sparse_obj = SparseArray(sparse_arr, 1000)
+    print(sparse_obj.get(33))
+    sparse_obj.set(57, 0)
