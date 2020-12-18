@@ -28,7 +28,6 @@ def print_link_list(node, is_dict=False):
         print(node_data)
 
 
-
 def generate_random_link_list():
     node = None
     random.seed(time.time())
