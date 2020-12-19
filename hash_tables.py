@@ -101,7 +101,7 @@ class SparseArray:
     def get(self, i):
         if i in self.__hash:
             print("GET:", self.__hash)
-            return self.__hash[i]
+            return self.__hash.get(i, 0)
         print("GET:", self.__hash)
         return 0
 
