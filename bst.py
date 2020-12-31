@@ -1,5 +1,6 @@
 import bst_utility
 
+
 # problem 1
 def get_bounds(root, val, floor=None, ciel=None):
     if not root:
@@ -23,9 +24,10 @@ def make_bst(arr):
 
     root = bst_utility.TreeNode(arr[mid])
     root.left = make_bst(arr[:mid])
-    root.right = make_bst(arr[mid+1:])
+    root.right = make_bst(arr[mid + 1:])
 
     return root
+
 
 # problem 3
 def make_trees(low, high):
@@ -34,9 +36,9 @@ def make_trees(low, high):
         trees.append(None)
         return trees
 
-    for i in range(low, high+1):
-        left = make_trees(low, i-1)
-        right = make_trees(i+1, high)
+    for i in range(low, high + 1):
+        left = make_trees(low, i - 1)
+        right = make_trees(i + 1, high)
 
         for l in left:
             for r in right:
