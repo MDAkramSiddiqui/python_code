@@ -1,4 +1,6 @@
 import heapq
+from collections import defaultdict
+
 from heap_utility import max_heapq
 
 
@@ -102,6 +104,27 @@ class FindMedian2:
             self.rebalance()
             print(self.find_median())
 
+# Problem 2
+def compute_similarity(a, b, visitors):
+    return len(visitors[a] & visitors[b]) / len(visitors[a] | visitors[b])
+
+def top_pairs(log, k):
+    visitors = defaultdict(set)
+    for site, user in log:
+        visitors[site].add(user)
+
+    pairs = []
+    sites = list(visitors.keys())
+
+    for i in range(k):
+        heapq.heappush(pairs, (0, ("", "")))
+
+    for i in range(len(sites)-1):
+        for j in range(i+1, len(sites)-1):
+            score = compute_similarity(sites[i], sites[j], visitors)
+            heapq.heappushpop(pairs, (score, (sites[i], sites[j])))
+
+    return [pair[1] for pair in pairs]
 
 if __name__ == "__main__":
     print("\n#####***** Solution 1 - A ******#####")
@@ -122,4 +145,14 @@ if __name__ == "__main__":
     # for i in range(len(val)):
     #     max_heapq.heappop(val)
     #     print(val)
+
+    print("\n#####***** Solution 2 ******#####")
+    log = [
+        ('a.com', 1), ('a.com', 3), ('a.com', 5), ('a.com', 6),
+        ('b.com', 1), ('b.com', 3), ('b.com', 5), ('c.com', 1),
+        ('d.com', 2), ('d.com', 7), ('e.com', 2), ('e.com', 6)
+    ]
+
+    print(top_pairs(log, 1))
+
 
